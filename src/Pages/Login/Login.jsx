@@ -15,8 +15,6 @@ const Login = () => {
               required
               autoComplete="off"
               id="email"
-              //   value={userData.email}
-              //   onChange={changeHandler}
             />
           </div>
           <div className="mt-3">
@@ -36,21 +34,19 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="block py-2.5 px-4 mt-3 w-full rounded bg-indigo-500 text-white hover:bg-indigo-600"
-            // onClick={loginHandler}
+            className="block py-2.5 px-4 mt-3 w-full rounded bg-orange-500 text-white hover:bg-orange-600"
           >
             Login
           </button>
           <button
             type="submit"
-            className="block border-2 border-indigo-500 py-2.5 px-4 mt-3 w-full rounded text-indigo-500 hover:bg-indigo-500 hover:text-white"
-            // onClick={(e) => guestHandler(e, "tj@gmail.com", "tj123")}
+            className="block border-2 border-orange-500 py-2.5 px-4 mt-3 w-full rounded text-orange-500 hover:bg-orange-500 hover:text-white"
           >
             Login in as Guest
           </button>
         </form>
         <p className="text-center mt-3">Don't Have An Account ?</p>
-        <button className="block text-indigo-500 text-sm font-medium mx-auto mt-2">
+        <button className="block text-orange-500 text-sm font-medium mx-auto mt-2">
           Create New Account
         </button>
       </div>

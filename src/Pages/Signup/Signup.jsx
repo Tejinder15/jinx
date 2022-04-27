@@ -74,12 +74,12 @@ const Signup = () => {
         </div>
         <button
           type="submit"
-          className="block py-2.5 px-4 mt-3 w-full rounded bg-indigo-500 text-white hover:bg-indigo-600"
+          className="block py-2.5 px-4 mt-3 w-full rounded bg-orange-500 text-white hover:bg-orange-600"
         >
           Signup
         </button>
         <p className="text-center mt-3">Already Have An Account ?</p>
-        <button className="block text-indigo-500 font-medium mx-auto mt-2">
+        <button className="block text-orange-500 font-medium mx-auto mt-2">
           Login
         </button>
       </div>
