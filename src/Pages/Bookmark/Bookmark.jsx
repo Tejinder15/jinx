@@ -1,4 +1,5 @@
 import BookPost from "../../Components/BookPost/BookPost";
+import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import LeftPanel from "../../Components/LeftPanel/LeftPanel";
 
@@ -15,6 +16,7 @@ const Bookmark = () => {
               <BookPost />
             </div>
           </div>
+          <Footer />
         </section>
       </main>
     </div>
