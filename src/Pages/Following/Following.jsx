@@ -1,4 +1,5 @@
 import FollowComp from "../../Components/FollowComp/FollowComp";
+import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 
 const Following = () => {
@@ -9,6 +10,7 @@ const Following = () => {
         <h2 className="px-2 text-2xl font-bold mb-3">Following</h2>
         <FollowComp />
         <FollowComp />
+        <Footer />
       </div>
     </div>
   );
