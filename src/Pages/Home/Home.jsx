@@ -14,6 +14,10 @@ const Home = () => {
           <div className="px-3">
             <Posts />
             <Posts />
+            <Posts />
+            <Posts />
+            <Posts />
+            <Posts />
           </div>
           <Footer />
         </section>

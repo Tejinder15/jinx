@@ -1,6 +1,6 @@
 const FriendRequest = () => {
   return (
-    <div className="bg-white p-4 rounded-lg sticky top-16 shadow-md">
+    <div className="bg-white p-4 rounded-lg sticky top-20 shadow-md">
       <h1 className="font-semibold text-slate-800 pb-3 pl-2 text-lg">
         Friend Request
       </h1>
