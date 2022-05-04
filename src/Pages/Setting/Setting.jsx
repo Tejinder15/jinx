@@ -1,3 +1,4 @@
+import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import LeftPanel from "../../Components/LeftPanel/LeftPanel";
 
@@ -28,6 +29,7 @@ const Setting = () => {
               </div>
             </div>
           </div>
+          <Footer />
         </section>
       </main>
     </div>

@@ -1,11 +1,11 @@
 import { MdPersonAdd } from "react-icons/md";
 const Suggested = () => {
   return (
-    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg">
+    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">
       <h1 className="font-semibold text-lg text-slate-800">
         Suggested For You
       </h1>
-      <div className="h-64 overflow-y-auto friendreqpanel">
+      <div className="h-60 overflow-y-auto friendreqpanel">
         <div className="flex items-center border mt-3 p-1 rounded-lg">
           <div className="w-16">
             <img

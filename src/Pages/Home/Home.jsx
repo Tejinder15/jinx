@@ -8,11 +8,17 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <main className="max-w-screen-xl mx-auto pt-3 flex justify-between">
+      <main className="max-w-screen-xl mx-auto flex justify-between">
         <LeftPanel />
-        <section className="max-w-xl mx-auto">
-          <Posts />
-          <Posts />
+        <section className="max-w-xl mx-auto pb-16">
+          <div className="px-3">
+            <Posts />
+            <Posts />
+            <Posts />
+            <Posts />
+            <Posts />
+            <Posts />
+          </div>
           <Footer />
         </section>
         <RightPanel />

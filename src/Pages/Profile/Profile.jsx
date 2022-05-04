@@ -3,6 +3,7 @@ import Header from "../../Components/Header/Header";
 import ProfPost from "../../Components/ProfPost/ProfPost";
 import LeftPanel from "../../Components/LeftPanel/LeftPanel";
 import { MdSettings } from "react-icons/md";
+import { Link } from "react-router-dom";
 const Profile = () => {
   return (
     <div>
@@ -29,14 +30,18 @@ const Profile = () => {
                     <p className="text-gray-800 font-bold">20</p>
                     <p className="text-gray-700 ">Posts</p>
                   </div>
-                  <div className="text-center">
-                    <p className="text-gray-800 font-bold">20</p>
-                    <p className="text-gray-700">Followers</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-gray-800 font-bold">20</p>
-                    <p className="text-gray-700">Following</p>
-                  </div>
+                  <Link to="/followers">
+                    <div className="text-center">
+                      <p className="text-gray-800 font-bold">20</p>
+                      <p className="text-gray-700">Followers</p>
+                    </div>
+                  </Link>
+                  <Link to="/following">
+                    <div className="text-center">
+                      <p className="text-gray-800 font-bold">20</p>
+                      <p className="text-gray-700">Following</p>
+                    </div>
+                  </Link>
                 </div>
                 <p className="px-2 text-sm text-gray-700 mt-1">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -53,9 +58,9 @@ const Profile = () => {
               </div>
             </div>
           </div>
+          <Footer />
         </section>
       </main>
-      <Footer />
     </div>
   );
 };
