@@ -9,20 +9,24 @@ import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
 import Login from "./Pages/Login/Login";
 import Explore from "./Pages/Explore/Explore";
+import {ProtectedRoute} from "./Routes/protected-route";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/explore" element={<Explore/>}/>
-        <Route path="/Followers" element={<Followers/>}/>
-        <Route path="/following" element={<Following/>}/>
-        <Route path="/bookmark" element={<Bookmark/>}/>
-        <Route path="/setting" element={<Setting/>}/>
+        <Route path="*" element={<h1 className="center-text">There's Nothing Here!</h1>}/>
+        <Route element={<ProtectedRoute/>}>
+          <Route path="/" element={<Home/>}/>
+        </Route>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/explore" element={<Explore/>}/>
+          <Route path="/Followers" element={<Followers/>}/>
+          <Route path="/following" element={<Following/>}/>
+          <Route path="/bookmark" element={<Bookmark/>}/>
+          <Route path="/setting" element={<Setting/>}/>
       </Routes>
     </div>
   );
