@@ -1,8 +1,7 @@
-import {createContext,useContext,useReducer} from "react";
-import { useEffect } from "react";
+import {createContext,useContext,useReducer,useEffect} from "react";
 import {authReducer} from "../../Reducer/auth-reducer";
 
-const defaultValue = {user:null,token:null};
+const defaultValue = {user:JSON.parse(localStorage.getItem('user')) || null,token:localStorage.getItem('token') || null};
 
 const AuthContext = createContext(defaultValue);
 

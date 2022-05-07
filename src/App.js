@@ -20,13 +20,13 @@ function App() {
         <Route path="*" element={<h1 className="center-text">There's Nothing Here!</h1>}/>
         <Route element={<ProtectedRoute/>}>
           <Route path="/" element={<Home/>}/>
-        </Route>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/explore" element={<Explore/>}/>
           <Route path="/Followers" element={<Followers/>}/>
           <Route path="/following" element={<Following/>}/>
           <Route path="/bookmark" element={<Bookmark/>}/>
           <Route path="/setting" element={<Setting/>}/>
+        </Route>
       </Routes>
     </div>
   );

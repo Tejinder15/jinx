@@ -23,7 +23,7 @@ const authReducer = (state,action) => {
                 ...state,
                 user: action.payload.user,
                 token: action.payload.token
-            }
+            };
         default:
             return state;
     }
