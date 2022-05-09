@@ -26,9 +26,6 @@ const Profile = () => {
     deletePost(postid, token, setMyPosts, username, postDispatch);
   };
 
-  // useEffect(() => {
-  //   loadmypost(username, setMyPosts);
-  // }, [username]);
   useEffect(() => {
     if (username) {
       loadmypost(username, setMyPosts);
