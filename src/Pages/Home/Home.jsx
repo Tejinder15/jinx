@@ -1,10 +1,10 @@
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
-import LeftPanel from "../../Components/LeftPanel/LeftPanel";
-import Posts from "../../Components/Posts/Posts";
-import RightPanel from "../../Components/RightPanel/RightPanel";
+import { Header, Footer, LeftPanel, Posts, RightPanel } from "../../Components";
+import { usePost } from "../../Context/PostContext/post-context";
 
 const Home = () => {
+  const {
+    postState: { posts },
+  } = usePost();
   return (
     <div>
       <Header />
@@ -12,12 +12,18 @@ const Home = () => {
         <LeftPanel />
         <section className="max-w-xl mx-auto pb-16">
           <div className="px-3">
-            <Posts />
-            <Posts />
-            <Posts />
-            <Posts />
-            <Posts />
-            <Posts />
+            {posts.length > 0 ? (
+              posts.map((item) => (
+                <Posts
+                  content={item.content}
+                  key={item.id}
+                  profile={item.profile}
+                  username={item.username}
+                />
+              ))
+            ) : (
+              <h1>Start Exploring Jinx.</h1>
+            )}
           </div>
           <Footer />
         </section>
