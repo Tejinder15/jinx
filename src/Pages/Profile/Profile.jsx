@@ -27,10 +27,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (username) {
-      loadmypost(username, setMyPosts);
-    }
-  }, []);
+    loadmypost(username, setMyPosts);
+  }, [username]);
 
   return (
     <div>

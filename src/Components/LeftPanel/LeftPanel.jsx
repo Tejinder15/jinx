@@ -1,6 +1,5 @@
 import Sidenav from "../Sidenav/Sidenav";
 import Filter from "../Filter/Filter";
-import { useEffect } from "react";
 
 const LeftPanel = ({ setMyPosts }) => {
   return (
