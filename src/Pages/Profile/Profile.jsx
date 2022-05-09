@@ -1,21 +1,47 @@
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
-import ProfPost from "../../Components/ProfPost/ProfPost";
-import LeftPanel from "../../Components/LeftPanel/LeftPanel";
-import { MdSettings } from "react-icons/md";
+import { Header, Footer, LeftPanel, RightPanel } from "../../Components";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext/auth-context";
+import { useEffect, useState } from "react";
+import { loadmypost } from "../../Utils/loadmypost";
+import { deletePost } from "../../Utils/deletepost";
+import {
+  MdFavorite,
+  MdDelete,
+  MdTextsms,
+  MdShare,
+  MdSettings,
+} from "react-icons/md";
+import { usePost } from "../../Context/PostContext/post-context";
 const Profile = () => {
+  const {
+    authState: { user, token },
+  } = useAuth();
+  const [myposts, setMyPosts] = useState([]);
+  const { postDispatch } = usePost();
+
+  const getMyPosts = async () => {
+    loadmypost(user.username, setMyPosts);
+  };
+
+  const delPostHandler = async (postid) => {
+    deletePost(postid, token, setMyPosts, user.username, postDispatch);
+  };
+
+  useEffect(() => {
+    getMyPosts();
+  }, []);
+
   return (
     <div>
       <Header />
-      <main className="max-w-screen-xl mx-auto pt-3 flex gap-36">
-        <LeftPanel />
+      <main className="max-w-screen-xl mx-auto pt-3 flex gap-4">
+        <LeftPanel upPost={setMyPosts} />
         <section className="max-w-xl mx-auto md:mx-0">
-          <div className="max-w-2xl mx-auto rounded-lg mt-4 bg-white px-4 py-5 shadow-md">
+          <div className="max-w-2xl mx-auto rounded-lg bg-white px-4 py-5 shadow-md">
             <div className="flex justify-evenly">
               <div className="w-40">
                 <img
-                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+                  src={user.profile}
                   alt="profile"
                   className="h-40 w-40 max-w-full object-cover rounded-full"
                 />
@@ -24,21 +50,27 @@ const Profile = () => {
                 <button className="ml-auto text-2xl p-2 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200">
                   <MdSettings />
                 </button>
-                <h2 className="font-semibold text-2xl text-gray-800">Andrea</h2>
+                <h2 className="font-semibold text-2xl text-gray-800">
+                  {user.username}
+                </h2>
                 <div className="flex justify-between w-3/4 px-2">
                   <div className="text-center">
-                    <p className="text-gray-800 font-bold">20</p>
+                    <p className="text-gray-800 font-bold">{myposts.length}</p>
                     <p className="text-gray-700 ">Posts</p>
                   </div>
                   <Link to="/followers">
                     <div className="text-center">
-                      <p className="text-gray-800 font-bold">20</p>
+                      <p className="text-gray-800 font-bold">
+                        {user.followers.length}
+                      </p>
                       <p className="text-gray-700">Followers</p>
                     </div>
                   </Link>
                   <Link to="/following">
                     <div className="text-center">
-                      <p className="text-gray-800 font-bold">20</p>
+                      <p className="text-gray-800 font-bold">
+                        {user.following.length}
+                      </p>
                       <p className="text-gray-700">Following</p>
                     </div>
                   </Link>
@@ -53,13 +85,57 @@ const Profile = () => {
                 Posts
               </h2>
               <div className="md:px-10 px-2">
-                <ProfPost />
-                <ProfPost />
+                {myposts.length > 0 ? (
+                  myposts.map((item) => (
+                    <div
+                      className="mt-5 bg-white rounded-lg px-1 border border-gray-400 mx-auto shadow-sm"
+                      key={item.id}
+                    >
+                      <div className="flex items-center px-3 py-2">
+                        <div className="w-16">
+                          <img
+                            src={item.profile}
+                            alt={item.profile + "_profile"}
+                            className="rounded-full max-w-full object-cover h-14 w-14"
+                          />
+                        </div>
+                        <div className="pl-2">
+                          <p className="font-semibold text-slate-700">
+                            {item.username}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="px-1">
+                        <p className="py-2 px-4">{item.content}</p>
+                      </div>
+                      <div className="flex items-center p-2 px-4 justify-between">
+                        <button className="text-2xl mx-1 text-slate-400">
+                          <MdFavorite />
+                        </button>
+                        <button className="text-2xl mx-1 ml-3 text-slate-400">
+                          <MdTextsms />
+                        </button>
+                        <button className="text-2xl mx-1 ml-3 text-slate-400">
+                          <MdShare />
+                        </button>
+                        <button
+                          className="text-2xl text-slate-400"
+                          onClick={() => delPostHandler(item._id)}
+                        >
+                          <MdDelete />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <h1 className="text-center pt-4">No Posts Yet.</h1>
+                )}
               </div>
             </div>
           </div>
           <Footer />
         </section>
+        <RightPanel />
       </main>
     </div>
   );
