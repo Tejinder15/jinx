@@ -8,22 +8,25 @@ const Suggested = () => {
   } = useAuth();
   const [users, setUsers] = useState([]);
 
-  const getUsers = async () => {
-    try {
-      const response = await axios.get("/api/users");
-      if (response.status === 200) {
-        setUsers(
-          response.data.users.filter((item) => item.username !== user.username)
-        );
-      } else {
-        throw new Error();
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await axios.get("/api/users");
+        if (response.status === 200) {
+          setUsers(
+            response.data.users.filter(
+              (item) => item.username !== user.username
+            )
+          );
+        } else {
+          throw new Error();
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => getUsers, []);
+    };
+    getUsers();
+  }, [user.username]);
   return (
     <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">
       <h1 className="font-semibold text-lg text-slate-800">

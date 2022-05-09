@@ -14,22 +14,24 @@ import {
 import { usePost } from "../../Context/PostContext/post-context";
 const Profile = () => {
   const {
-    authState: { user, token },
+    authState: {
+      user: { username, profile, followers, following },
+      token,
+    },
   } = useAuth();
   const [myposts, setMyPosts] = useState([]);
   const { postDispatch } = usePost();
 
-  const getMyPosts = async () => {
-    loadmypost(user.username, setMyPosts);
-  };
-
   const delPostHandler = async (postid) => {
-    deletePost(postid, token, setMyPosts, user.username, postDispatch);
+    deletePost(postid, token, setMyPosts, username, postDispatch);
   };
 
   useEffect(() => {
+    const getMyPosts = () => {};
+    loadmypost(username, setMyPosts);
     getMyPosts();
-  }, []);
+    console.log("Inside Profile");
+  }, [username]);
 
   return (
     <div>
@@ -41,7 +43,7 @@ const Profile = () => {
             <div className="flex justify-evenly">
               <div className="w-40">
                 <img
-                  src={user.profile}
+                  src={profile}
                   alt="profile"
                   className="h-40 w-40 max-w-full object-cover rounded-full"
                 />
@@ -51,7 +53,7 @@ const Profile = () => {
                   <MdSettings />
                 </button>
                 <h2 className="font-semibold text-2xl text-gray-800">
-                  {user.username}
+                  {username}
                 </h2>
                 <div className="flex justify-between w-3/4 px-2">
                   <div className="text-center">
@@ -61,7 +63,7 @@ const Profile = () => {
                   <Link to="/followers">
                     <div className="text-center">
                       <p className="text-gray-800 font-bold">
-                        {user.followers.length}
+                        {followers.length}
                       </p>
                       <p className="text-gray-700">Followers</p>
                     </div>
@@ -69,7 +71,7 @@ const Profile = () => {
                   <Link to="/following">
                     <div className="text-center">
                       <p className="text-gray-800 font-bold">
-                        {user.following.length}
+                        {following.length}
                       </p>
                       <p className="text-gray-700">Following</p>
                     </div>
