@@ -27,10 +27,10 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const getMyPosts = () => {};
-    loadmypost(username, setMyPosts);
+    const getMyPosts = () => {
+      loadmypost(username, setMyPosts);
+    };
     getMyPosts();
-    console.log("Inside Profile");
   }, [username]);
 
   return (
