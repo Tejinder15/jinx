@@ -1,13 +1,13 @@
-import Filter from "../Filter/Filter";
 import Sidenav from "../Sidenav/Sidenav";
+import Filter from "../Filter/Filter";
 
-const LeftPanel = () => {
+const LeftPanel = ({ upPost }) => {
   return (
     <aside className="max-w-xs hidden md:block box-content">
-      <Sidenav />
+      <Sidenav setMyPosts={upPost} />
       <Filter />
     </aside>
   );
 };
 
-export default LeftPanel;
+export { LeftPanel };

@@ -40,4 +40,4 @@ const BookPost = () => {
   );
 };
 
-export default BookPost;
+export { BookPost };

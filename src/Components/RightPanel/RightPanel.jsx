@@ -10,4 +10,4 @@ const RightPanel = () => {
   );
 };
 
-export default RightPanel;
+export { RightPanel };
