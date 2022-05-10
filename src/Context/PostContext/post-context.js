@@ -24,7 +24,6 @@ const PostProvider = ({children}) => {
 
 useEffect(()=>{
 loadallpost();
-// console.log("testing load");
 },[]);
 return(
     <PostContext.Provider value={{postState,postDispatch}}>

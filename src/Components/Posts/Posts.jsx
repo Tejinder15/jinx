@@ -1,5 +1,26 @@
 import { MdFavorite, MdBookmark, MdTextsms, MdShare } from "react-icons/md";
-const Posts = ({ content, profile, username }) => {
+import { useAuth } from "../../Context/AuthContext/auth-context";
+import { useBookmark } from "../../Context/BookContext/bookmark-context";
+import { addToBookmark } from "../../Utils/addtobookmark";
+import { delFromBookmark } from "../../Utils/delfrombookmark";
+const Posts = ({ content, profile, username, postid }) => {
+  const {
+    authState: { token },
+  } = useAuth();
+
+  const {
+    bookmarkState: { bookmarks },
+    bookmarkDispatch,
+  } = useBookmark();
+
+  const addBookmarkHandler = (postid) => {
+    addToBookmark(postid, bookmarks, token, bookmarkDispatch);
+  };
+
+  const delBookmarkHandler = (postid) => {
+    delFromBookmark(postid, bookmarks, token, bookmarkDispatch);
+  };
+
   return (
     <div className="max-w-xl shadow-xl mb-5 bg-white rounded-lg px-1">
       <div className="flex items-center px-3 py-2">
@@ -27,9 +48,15 @@ const Posts = ({ content, profile, username }) => {
         <button className="text-2xl mx-1 ml-3 text-slate-400">
           <MdShare />
         </button>
-        <button className="text-2xl text-slate-400">
-          <MdBookmark />
-        </button>
+        {bookmarks.some((item) => item._id === postid) ? (
+          <button className="text-2xl text-orange-500">
+            <MdBookmark onClick={() => delBookmarkHandler(postid)} />
+          </button>
+        ) : (
+          <button className="text-2xl text-slate-400">
+            <MdBookmark onClick={() => addBookmarkHandler(postid)} />
+          </button>
+        )}
       </div>
     </div>
   );
