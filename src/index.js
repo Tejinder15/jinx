@@ -6,6 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext/auth-context";
 import {createRoot} from "react-dom/client";
 import { PostProvider } from "./Context/PostContext/post-context";
+import { BookMarkProvider } from "./Context/BookContext/bookmark-context";
 
 
 // Call make Server
@@ -17,7 +18,9 @@ root.render(
     <BrowserRouter>
     <AuthProvider>
     <PostProvider>
+    <BookMarkProvider>
     <App />
+    </BookMarkProvider>
     </PostProvider>
     </AuthProvider>
     </BrowserRouter>
