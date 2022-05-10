@@ -23,4 +23,4 @@ const FollowComp = () => {
   );
 };
 
-export default FollowComp;
+export { FollowComp };

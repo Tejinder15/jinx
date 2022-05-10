@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext/auth-context";
 const Header = () => {
+  const {
+    authState: { user },
+  } = useAuth();
   return (
     <header className="bg-white h-16 sticky top-0 shadow-md mb-4">
       <nav className="max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
@@ -7,7 +11,7 @@ const Header = () => {
         <Link to="/profile">
           <div>
             <img
-              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+              src={user.profile}
               alt="avatar"
               className="rounded-full h-12 w-12 max-w-full object-cover"
             />
@@ -18,4 +22,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export { Header };

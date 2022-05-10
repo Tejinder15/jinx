@@ -1,6 +1,4 @@
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
-import LeftPanel from "../../Components/LeftPanel/LeftPanel";
+import { Header, Footer, LeftPanel } from "../../Components";
 
 const Setting = () => {
   return (

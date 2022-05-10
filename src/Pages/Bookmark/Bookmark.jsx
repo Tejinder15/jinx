@@ -1,7 +1,4 @@
-import BookPost from "../../Components/BookPost/BookPost";
-import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header";
-import LeftPanel from "../../Components/LeftPanel/LeftPanel";
+import { BookPost, Header, Footer, LeftPanel } from "../../Components";
 
 const Bookmark = () => {
   return (
