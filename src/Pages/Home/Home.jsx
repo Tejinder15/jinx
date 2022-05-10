@@ -19,6 +19,7 @@ const Home = () => {
                   key={item.id}
                   profile={item.profile}
                   username={item.username}
+                  postid={item._id}
                 />
               ))
             ) : (
