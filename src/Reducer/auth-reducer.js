@@ -24,6 +24,16 @@ const authReducer = (state,action) => {
                 user: action.payload.user,
                 token: action.payload.token
             };
+        case "FOLLOWING":
+            return{
+                ...state,
+                user:action.payload.user
+            };
+        case "UNFOLLOWING":
+            return{
+                ...state,
+                user:action.payload.user
+            };
         default:
             return state;
     }
