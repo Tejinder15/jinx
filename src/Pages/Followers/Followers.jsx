@@ -9,7 +9,7 @@ const Followers = () => {
   } = useAuth();
 
   const followHandler = (followingId) => {
-    followUser(followingId, user, token, authDispatch);
+    followUser(followingId, token, authDispatch);
   };
   return (
     <div>
