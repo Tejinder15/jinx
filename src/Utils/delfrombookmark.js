@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const delFromBookmark = async (postid,bookmarks,token,bookmarkDispatch) => {
+const delFromBookmark = async (postid,token,bookmarkDispatch) => {
     try {
         const response = await axios.post(
         `/api/users/remove-bookmark/${postid}`,
-        { bookmarks: bookmarks },
+        {},
         {
           headers: { authorization: token },
         }

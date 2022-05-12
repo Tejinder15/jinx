@@ -6,12 +6,10 @@ const BookPost = ({ content, profile, username, postid }) => {
   const {
     authState: { token },
   } = useAuth();
-  const {
-    bookmarkState: { bookmarks },
-    bookmarkDispatch,
-  } = useBookmark();
+  const { bookmarkDispatch } = useBookmark();
+
   const delHandler = (postid) => {
-    delFromBookmark(postid, bookmarks, token, bookmarkDispatch);
+    delFromBookmark(postid, token, bookmarkDispatch);
   };
   return (
     <div className="mt-5 bg-white rounded-lg px-1 border border-gray-400 mx-auto shadow-sm">
