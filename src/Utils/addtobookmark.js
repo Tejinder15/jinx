@@ -14,7 +14,6 @@ const addToBookmark = async (postid,token,bookmarkDispatch) => {
           type: "ADD",
           payload: { bookmarks: response.data.bookmarks },
         });
-        console.log(response);
       } else {
         throw new Error();
       }
