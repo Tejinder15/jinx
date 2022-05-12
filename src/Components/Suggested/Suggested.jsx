@@ -2,11 +2,18 @@ import { MdPersonAdd } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../Context/AuthContext/auth-context";
+import { followUser } from "../../Utils/followuser";
 const Suggested = () => {
   const {
-    authState: { user },
+    authState: { user, token },
+    authDispatch,
   } = useAuth();
   const [users, setUsers] = useState([]);
+  const followingUserId = user.following.reduce(
+    (acc, curr) => [...acc, curr._id],
+    []
+  );
+  const sugUser = users.filter((item) => !followingUserId.includes(item._id));
 
   useEffect(() => {
     const getUsers = async () => {
@@ -26,14 +33,19 @@ const Suggested = () => {
       }
     };
     getUsers();
-  }, [user.username]);
+    // eslint-disable-next-line
+  }, []);
+
+  const followHandler = (followingId) => {
+    followUser(followingId, user, token, authDispatch);
+  };
   return (
     <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">
       <h1 className="font-semibold text-lg text-slate-800">
         Suggested For You
       </h1>
       <div className="h-60 overflow-y-auto friendreqpanel">
-        {users.map((item) => (
+        {sugUser.map((item) => (
           <div
             className="flex items-center border mt-3 p-1 rounded-lg"
             key={item._id}
@@ -50,7 +62,7 @@ const Suggested = () => {
               <p className="text-xs text-gray-600">Followed by xyz.</p>
             </div>
             <div className="ml-auto p-3 bg-gray-200 rounded-full text-xl hover:bg-gray-300 text-orange-500">
-              <MdPersonAdd />
+              <MdPersonAdd onClick={() => followHandler(item._id)} />
             </div>
           </div>
         ))}
