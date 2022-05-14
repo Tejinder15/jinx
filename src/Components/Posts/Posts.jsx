@@ -2,6 +2,7 @@ import { MdFavorite, MdBookmark, MdTextsms, MdShare } from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext/auth-context";
 import { useBookmark } from "../../Context/BookContext/bookmark-context";
 import { usePost } from "../../Context/PostContext/post-context";
+import { useNavigate } from "react-router-dom";
 import { addToBookmark } from "../../Utils/addtobookmark";
 import { delFromBookmark } from "../../Utils/delfrombookmark";
 import { dislikePost } from "../../Utils/dislikepost";
@@ -15,6 +16,8 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
     bookmarkState: { bookmarks },
     bookmarkDispatch,
   } = useBookmark();
+
+  const navigate = useNavigate();
 
   const { postDispatch } = usePost();
 
@@ -53,27 +56,42 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
       </div>
       <div className="flex items-center p-2 justify-between">
         {likedBy.some((item) => item.username === user.username) ? (
-          <button className="text-2xl mx-1 text-red-500">
-            <MdFavorite onClick={() => dislikeHandler(postid)} />
+          <button
+            className="text-2xl mx-1 text-red-500"
+            onClick={() => dislikeHandler(postid)}
+          >
+            <MdFavorite />
           </button>
         ) : (
-          <button className="text-2xl mx-1 text-slate-400">
-            <MdFavorite onClick={() => likeHandler(postid)} />
+          <button
+            className="text-2xl mx-1 text-slate-400"
+            onClick={() => likeHandler(postid)}
+          >
+            <MdFavorite />
           </button>
         )}
-        <button className="text-2xl mx-1 ml-3 text-slate-400">
-          <MdTextsms onClick={() => console.log(postid)} />
+        <button
+          className="text-2xl mx-1 ml-3 text-slate-400"
+          onClick={() => navigate(`/post/${postid}`)}
+        >
+          <MdTextsms />
         </button>
         <button className="text-2xl mx-1 ml-3 text-slate-400">
           <MdShare />
         </button>
         {bookmarks.some((item) => item._id === postid) ? (
-          <button className="text-2xl text-orange-500">
-            <MdBookmark onClick={() => delBookmarkHandler(postid)} />
+          <button
+            className="text-2xl text-orange-500"
+            onClick={() => delBookmarkHandler(postid)}
+          >
+            <MdBookmark />
           </button>
         ) : (
-          <button className="text-2xl text-slate-400">
-            <MdBookmark onClick={() => addBookmarkHandler(postid)} />
+          <button
+            className="text-2xl text-slate-400"
+            onClick={() => addBookmarkHandler(postid)}
+          >
+            <MdBookmark />
           </button>
         )}
       </div>
