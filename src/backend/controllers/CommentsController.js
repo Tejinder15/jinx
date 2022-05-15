@@ -48,7 +48,6 @@ export const addPostCommentHandler = function (schema, request) {
     }
     const { postId } = request.params;
     const { commentData } = JSON.parse(request.requestBody);
-    console.log(commentData);
     const comment = {
       _id: uuid(),
       // ...commentData,
@@ -164,6 +163,7 @@ export const deletePostCommentHandler = function (schema, request) {
     this.db.posts.update({ _id: postId }, post);
     // return new Response(201, {}, { comments: post.comments });
     return new Response(201, {}, { posts:this.db.posts });
+    // return new Response(201, {}, {comments:post.comments, posts:this.db.posts });
   } catch (error) {
     return new Response(
       500,
