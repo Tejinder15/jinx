@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const addToBookmark = async (postid,bookmarks,token,bookmarkDispatch) => {
+const addToBookmark = async (postid,token,bookmarkDispatch) => {
     try {
         const response = await axios.post(
         `/api/users/bookmark/${postid}`,
-        { bookmarks: bookmarks },
+        {},
         {
           headers: { authorization: token },
         }

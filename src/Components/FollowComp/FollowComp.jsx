@@ -3,11 +3,11 @@ import { unFollowUser } from "../../Utils/unfollowuser";
 
 const FollowComp = ({ id, username, profile }) => {
   const {
-    authState: { user, token },
+    authState: { token },
     authDispatch,
   } = useAuth();
   const unfollowHandler = (followingId) => {
-    unFollowUser(followingId, user, token, authDispatch);
+    unFollowUser(followingId, token, authDispatch);
   };
   return (
     <div className="mb-2">

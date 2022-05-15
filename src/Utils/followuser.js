@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const followUser = async (followingId,user,token,authDispatch) => {
+const followUser = async (followingId,token,authDispatch) => {
     try {
       const response = await axios.post(
         `/api/users/follow/${followingId}`,
-        { user: user, followUser: user.following },
+        {},
         { headers: { authorization: token } }
       );
       if (response.status === 200) {
@@ -15,6 +15,7 @@ const followUser = async (followingId,user,token,authDispatch) => {
       } else {
         throw new Error();
       }
+      console.log(response);
     } catch (error) {
       console.error(error);
     }

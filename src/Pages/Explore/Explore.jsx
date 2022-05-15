@@ -26,6 +26,7 @@ const Explore = () => {
                     username={item.username}
                     profile={item.profile}
                     postid={item._id}
+                    likedBy={item.likes.likedBy}
                   />
                 ))
               ) : (

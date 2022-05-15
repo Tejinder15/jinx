@@ -20,6 +20,7 @@ const Home = () => {
                   profile={item.profile}
                   username={item.username}
                   postid={item._id}
+                  likedBy={item.likes.likedBy}
                 />
               ))
             ) : (

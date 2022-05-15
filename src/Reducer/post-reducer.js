@@ -15,6 +15,16 @@ const postReducer = (state,action) => {
                 ...state,
                 posts:action.payload.posts
             };
+        case "LIKE":
+            return {
+                ...state,
+                posts: action.payload.posts
+            };
+        case "DISLIKE":
+            return {
+                ...state,
+                posts: action.payload.posts
+            };
         default:
             return state;
     }

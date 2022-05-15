@@ -37,7 +37,7 @@ const Suggested = () => {
   }, []);
 
   const followHandler = (followingId) => {
-    followUser(followingId, user, token, authDispatch);
+    followUser(followingId, token, authDispatch);
   };
   return (
     <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">

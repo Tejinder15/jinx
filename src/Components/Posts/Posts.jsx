@@ -1,11 +1,14 @@
 import { MdFavorite, MdBookmark, MdTextsms, MdShare } from "react-icons/md";
 import { useAuth } from "../../Context/AuthContext/auth-context";
 import { useBookmark } from "../../Context/BookContext/bookmark-context";
+import { usePost } from "../../Context/PostContext/post-context";
 import { addToBookmark } from "../../Utils/addtobookmark";
 import { delFromBookmark } from "../../Utils/delfrombookmark";
-const Posts = ({ content, profile, username, postid }) => {
+import { dislikePost } from "../../Utils/dislikepost";
+import { likePost } from "../../Utils/likepost";
+const Posts = ({ content, profile, username, postid, likedBy }) => {
   const {
-    authState: { token },
+    authState: { user, token },
   } = useAuth();
 
   const {
@@ -13,12 +16,22 @@ const Posts = ({ content, profile, username, postid }) => {
     bookmarkDispatch,
   } = useBookmark();
 
+  const { postDispatch } = usePost();
+
   const addBookmarkHandler = (postid) => {
-    addToBookmark(postid, bookmarks, token, bookmarkDispatch);
+    addToBookmark(postid, token, bookmarkDispatch);
   };
 
   const delBookmarkHandler = (postid) => {
-    delFromBookmark(postid, bookmarks, token, bookmarkDispatch);
+    delFromBookmark(postid, token, bookmarkDispatch);
+  };
+
+  const likeHandler = async (postid) => {
+    likePost(postid, token, postDispatch);
+  };
+
+  const dislikeHandler = async (postid) => {
+    dislikePost(postid, token, postDispatch);
   };
 
   return (
@@ -39,11 +52,17 @@ const Posts = ({ content, profile, username, postid }) => {
         <p className="py-2 px-4">{content}</p>
       </div>
       <div className="flex items-center p-2 justify-between">
-        <button className="text-2xl mx-1 text-slate-400">
-          <MdFavorite />
-        </button>
+        {likedBy.some((item) => item.username === user.username) ? (
+          <button className="text-2xl mx-1 text-red-500">
+            <MdFavorite onClick={() => dislikeHandler(postid)} />
+          </button>
+        ) : (
+          <button className="text-2xl mx-1 text-slate-400">
+            <MdFavorite onClick={() => likeHandler(postid)} />
+          </button>
+        )}
         <button className="text-2xl mx-1 ml-3 text-slate-400">
-          <MdTextsms />
+          <MdTextsms onClick={() => console.log(postid)} />
         </button>
         <button className="text-2xl mx-1 ml-3 text-slate-400">
           <MdShare />
