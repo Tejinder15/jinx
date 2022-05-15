@@ -48,10 +48,11 @@ export const addPostCommentHandler = function (schema, request) {
     }
     const { postId } = request.params;
     const { commentData } = JSON.parse(request.requestBody);
-
+    console.log(commentData);
     const comment = {
       _id: uuid(),
-      ...commentData,
+      // ...commentData,
+      text:commentData,
       username: user.username,
       votes: { upvotedBy: [], downvotedBy: [] },
       createdAt: formatDate(),
@@ -60,7 +61,8 @@ export const addPostCommentHandler = function (schema, request) {
     const post = schema.posts.findBy({ _id: postId }).attrs;
     post.comments.push(comment);
     this.db.posts.update({ _id: postId }, post);
-    return new Response(201, {}, { comments: post.comments });
+    // return new Response(201, {}, { comments: post.comments });
+    return new Response(201, {}, {posts:this.db.posts });
   } catch (error) {
     return new Response(
       500,
@@ -160,7 +162,8 @@ export const deletePostCommentHandler = function (schema, request) {
       (comment) => comment._id !== commentId
     );
     this.db.posts.update({ _id: postId }, post);
-    return new Response(201, {}, { comments: post.comments });
+    // return new Response(201, {}, { comments: post.comments });
+    return new Response(201, {}, { posts:this.db.posts });
   } catch (error) {
     return new Response(
       500,
@@ -192,6 +195,7 @@ export const upvotePostCommentHandler = function (schema, request) {
       );
     }
     const { postId, commentId } = request.params;
+    // eslint-disable-next-line
     const commentIndex = post.comments.findIndex(
       (comment) => comment._id === commentId
     );
@@ -245,6 +249,7 @@ export const downvotePostCommentHandler = function (schema, request) {
       );
     }
     const { postId, commentId } = request.params;
+    // eslint-disable-next-line
     const commentIndex = post.comments.findIndex(
       (comment) => comment._id === commentId
     );
