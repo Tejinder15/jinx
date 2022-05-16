@@ -5,6 +5,7 @@ import Bookmark from "./Pages/Bookmark/Bookmark";
 import Followers from "./Pages/Followers/Followers";
 import Following from "./Pages/Following/Following";
 import Home from "./Pages/Home/Home";
+import Post from "./Pages/Post/Post";
 import Profile from "./Pages/Profile/Profile";
 import Signup from "./Pages/Signup/Signup";
 import Login from "./Pages/Login/Login";
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="*" element={<h1 className="center-text">There's Nothing Here!</h1>}/>
+        <Route path="/post/:postId" element={<Post/>}/>
         <Route element={<ProtectedRoute/>}>
           <Route path="/" element={<Home/>}/>
           <Route path="/profile" element={<Profile/>}/>
