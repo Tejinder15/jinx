@@ -7,18 +7,14 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { usePost } from "../../Context/PostContext/post-context";
-import { loadmypost } from "../../Utils/loadmypost";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../../redux/thunks/postThunk";
 
 const Sidenav = ({ setMyPosts }) => {
   const [modal, setModal] = useState(false);
   const [post, setPost] = useState({ content: "" });
-  const {
-    authState: { token, user },
-  } = useAuth();
-  const { postDispatch } = usePost();
+  const { token, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const getActiveLink = ({ isActive }) => ({
     backgroundColor: isActive ? "#f97516" : "white",
@@ -33,27 +29,11 @@ const Sidenav = ({ setMyPosts }) => {
 
   const UploadPost = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "/api/posts",
-        { postData: post },
-        { headers: { authorization: token } }
-      );
-      if (response.status === 201) {
-        setPost("");
-        setModal(false);
-        postDispatch({
-          type: "UPLOAD",
-          payload: { posts: response.data.posts },
-        });
-        loadmypost(user.username, setMyPosts);
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    setPost("");
+    setModal(false);
+    dispatch(addPost({ post, token }));
   };
+
   return (
     <>
       <div className="w-full bg-white p-3 rounded-lg sticky top-20 md:flex-col pl-8 px-12  py-10 shadow-md">
