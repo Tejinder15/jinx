@@ -1,38 +1,24 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
-import { useAuth } from "../../Context/AuthContext/auth-context";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { loginUser } from "../../redux/thunks/authThunk";
+import { useSelector, useDispatch } from "react-redux";
+
 const Login = () => {
   const navigate = useNavigate();
-  const { authDispatch } = useAuth();
+  const location = useLocation();
+  const { token } = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({ username: "", password: "" });
+  const dispatch = useDispatch();
 
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value });
   };
 
-  const formSubmissionHandler = async (event) => {
-    event.preventDefault();
+  const submitForm = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post("/api/auth/login", {
-        username: userData.username,
-        password: userData.password,
-      });
-      if (response.status === 200) {
-        authDispatch({
-          type: "LOGIN",
-          payload: {
-            user: response.data.foundUser,
-            token: response.data.encodedToken,
-          },
-        });
-        localStorage.setItem("token", response.data.encodedToken);
-        localStorage.setItem("user", JSON.stringify(response.data.foundUser));
-        navigate("/");
-      } else {
-        throw new Error();
-      }
+      dispatch(loginUser(userData));
     } catch (error) {
       console.error(error);
     }
@@ -43,11 +29,18 @@ const Login = () => {
     setUserData({ ...userData, username: uname, password: pass });
   };
 
+  useEffect(() => {
+    if (token && location.pathname === "/login") {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, [token]);
+
   return (
     <div className="flex justify-center items-center h-screen bg-slate-200">
       <div className="max-w-md p-8 rounded shadow-xl bg-white">
         <h1 className="text-5xl font-semibold text-center">Jinx</h1>
-        <form onSubmit={formSubmissionHandler}>
+        <form onSubmit={(e) => submitForm(e)}>
           <div className="mt-3">
             <label htmlFor="username" className="text-slate-600">
               Username

@@ -3,38 +3,30 @@ import { useAuth } from "../../Context/AuthContext/auth-context";
 import { useBookmark } from "../../Context/BookContext/bookmark-context";
 import { usePost } from "../../Context/PostContext/post-context";
 import { useNavigate } from "react-router-dom";
-import { addToBookmark } from "../../Utils/addtobookmark";
-import { delFromBookmark } from "../../Utils/delfrombookmark";
-import { dislikePost } from "../../Utils/dislikepost";
-import { likePost } from "../../Utils/likepost";
+import { useDispatch, useSelector } from "react-redux";
+import { dislikePost, likePost } from "../../redux/thunks/postThunk";
 const Posts = ({ content, profile, username, postid, likedBy }) => {
-  const {
-    authState: { user, token },
-  } = useAuth();
-
-  const {
-    bookmarkState: { bookmarks },
-    bookmarkDispatch,
-  } = useBookmark();
+  const dispatch = useDispatch();
+  const { user, token } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
-  const { postDispatch } = usePost();
+  // const addBookmarkHandler = (postid) => {
+  //   addToBookmark(postid, token, bookmarkDispatch);
+  // };
 
-  const addBookmarkHandler = (postid) => {
-    addToBookmark(postid, token, bookmarkDispatch);
-  };
-
-  const delBookmarkHandler = (postid) => {
-    delFromBookmark(postid, token, bookmarkDispatch);
-  };
+  // const delBookmarkHandler = (postid) => {
+  //   delFromBookmark(postid, token, bookmarkDispatch);
+  // };
 
   const likeHandler = async (postid) => {
-    likePost(postid, token, postDispatch);
+    // likePost(postid, token, postDispatch);
+    dispatch(likePost({ postid, token }));
   };
 
   const dislikeHandler = async (postid) => {
-    dislikePost(postid, token, postDispatch);
+    // dislikePost(postid, token, postDispatch);
+    dispatch(dislikePost({ postid, token }));
   };
 
   return (
@@ -79,7 +71,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
         <button className="text-2xl mx-1 ml-3 text-slate-400">
           <MdShare />
         </button>
-        {bookmarks.some((item) => item._id === postid) ? (
+        {/* {bookmarks.some((item) => item._id === postid) ? (
           <button
             className="text-2xl text-orange-500"
             onClick={() => delBookmarkHandler(postid)}
@@ -93,7 +85,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
           >
             <MdBookmark />
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

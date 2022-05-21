@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext/auth-context";
+import { useSelector } from "react-redux";
 const Header = () => {
-  const {
-    authState: { user },
-  } = useAuth();
+  const { user } = useSelector((state) => state.auth);
   return (
     <header className="bg-white h-16 sticky top-0 shadow-md mb-4">
       <nav className="max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
