@@ -33,7 +33,7 @@ const Home = () => {
           </div>
           <Footer />
         </section>
-        {/* <RightPanel /> */}
+        <RightPanel />
       </main>
     </div>
   );
