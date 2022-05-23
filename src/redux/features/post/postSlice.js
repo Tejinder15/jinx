@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getAllPosts,addPost,delPost,editPost,likePost,dislikePost} from "../../thunks/postThunk";
+import {getAllPosts,addPost,delPost,editPost,likePost,dislikePost,addComment,delComment} from "../../thunks/postThunk";
 
 const initialState = {
     posts:[]
@@ -12,7 +12,6 @@ const postSlice = createSlice({
     extraReducers: {
         [getAllPosts.fulfilled]:(state,action) => {
             state.posts = action.payload;
-            console.log(state.posts);
         },
         [getAllPosts.rejected]:(state,action)=>{
             console.error(action.payload);
@@ -45,6 +44,18 @@ const postSlice = createSlice({
             state.posts = action.payload;
         },
         [dislikePost.rejected]:(state,action) => {
+            console.error(action.payload);
+        },
+        [addComment.fulfilled]:(state,action) => {
+            state.posts = action.payload;
+        },
+        [addComment.rejected]:(state,action) => {
+            console.error(action.payload);
+        },
+        [delComment.fulfilled]:(state,action) => {
+            state.posts = action.payload;
+        },
+        [delComment.rejected]:(state,action) => {
             console.error(action.payload);
         },
         
