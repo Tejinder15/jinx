@@ -1,10 +1,14 @@
 import { Header, Footer, LeftPanel, Posts, RightPanel } from "../../Components";
-import { usePost } from "../../Context/PostContext/post-context";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPosts } from "../../redux/thunks/postThunk";
 
 const Home = () => {
-  const {
-    postState: { posts },
-  } = usePost();
+  const { posts } = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, [dispatch]);
   return (
     <div>
       <Header />
@@ -29,7 +33,7 @@ const Home = () => {
           </div>
           <Footer />
         </section>
-        <RightPanel />
+        {/* <RightPanel /> */}
       </main>
     </div>
   );

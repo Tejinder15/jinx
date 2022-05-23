@@ -9,6 +9,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../redux/thunks/postThunk";
+import { loadmypost } from "../../Utils/loadmypost";
 
 const Sidenav = ({ setMyPosts }) => {
   const [modal, setModal] = useState(false);
@@ -32,6 +33,7 @@ const Sidenav = ({ setMyPosts }) => {
     setPost("");
     setModal(false);
     dispatch(addPost({ post, token }));
+    loadmypost(user.username, setMyPosts);
   };
 
   return (

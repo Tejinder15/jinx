@@ -1,31 +1,31 @@
 import { MdFavorite, MdBookmark, MdTextsms, MdShare } from "react-icons/md";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { useBookmark } from "../../Context/BookContext/bookmark-context";
-import { usePost } from "../../Context/PostContext/post-context";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { dislikePost, likePost } from "../../redux/thunks/postThunk";
+import { addBookmark, delBookmark } from "../../redux/thunks/bookThunk";
 const Posts = ({ content, profile, username, postid, likedBy }) => {
   const dispatch = useDispatch();
   const { user, token } = useSelector((state) => state.auth);
+  const { bookmarks } = useSelector((state) => state.bookmarks);
 
   const navigate = useNavigate();
 
-  // const addBookmarkHandler = (postid) => {
-  //   addToBookmark(postid, token, bookmarkDispatch);
-  // };
+  const addBookmarkHandler = (postid) => {
+    // addToBookmark(postid, token, bookmarkDispatch);
+    // console.log(postid);
+    dispatch(addBookmark({ postid, token }));
+  };
 
-  // const delBookmarkHandler = (postid) => {
-  //   delFromBookmark(postid, token, bookmarkDispatch);
-  // };
+  const delBookmarkHandler = (postid) => {
+    // delFromBookmark(postid, token, bookmarkDispatch);
+    dispatch(delBookmark({ postid, token }));
+  };
 
   const likeHandler = async (postid) => {
-    // likePost(postid, token, postDispatch);
     dispatch(likePost({ postid, token }));
   };
 
   const dislikeHandler = async (postid) => {
-    // dislikePost(postid, token, postDispatch);
     dispatch(dislikePost({ postid, token }));
   };
 
@@ -71,7 +71,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
         <button className="text-2xl mx-1 ml-3 text-slate-400">
           <MdShare />
         </button>
-        {/* {bookmarks.some((item) => item._id === postid) ? (
+        {bookmarks.some((item) => item._id === postid) ? (
           <button
             className="text-2xl text-orange-500"
             onClick={() => delBookmarkHandler(postid)}
@@ -85,7 +85,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
           >
             <MdBookmark />
           </button>
-        )} */}
+        )}
       </div>
     </div>
   );

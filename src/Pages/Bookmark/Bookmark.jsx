@@ -1,21 +1,15 @@
 import { BookPost, Header, Footer, LeftPanel } from "../../Components";
 import { useEffect } from "react";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { loadBookmarks } from "../../Utils/loadBookmarks";
-import { useBookmark } from "../../Context/BookContext/bookmark-context";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBookmark } from "../../redux/thunks/bookThunk";
 
 const Bookmark = () => {
-  const {
-    authState: { token },
-  } = useAuth();
-
-  const {
-    bookmarkState: { bookmarks },
-    bookmarkDispatch,
-  } = useBookmark();
+  const { token } = useSelector((state) => state.auth);
+  const { bookmarks } = useSelector((state) => state.bookmarks);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    loadBookmarks(token, bookmarkDispatch);
+    dispatch(getAllBookmark({ token }));
     // eslint-disable-next-line
   }, []);
   return (

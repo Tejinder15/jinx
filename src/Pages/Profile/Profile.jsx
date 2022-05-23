@@ -1,9 +1,7 @@
 import { Header, Footer, LeftPanel, RightPanel } from "../../Components";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext/auth-context";
 import { useEffect, useState } from "react";
 import { loadmypost } from "../../Utils/loadmypost";
-import { deletePost } from "../../Utils/deletepost";
 import {
   MdFavorite,
   MdDelete,
@@ -11,24 +9,21 @@ import {
   MdShare,
   MdSettings,
 } from "react-icons/md";
-import { usePost } from "../../Context/PostContext/post-context";
+import { useDispatch, useSelector } from "react-redux";
+import { delPost } from "../../redux/thunks/postThunk";
 const Profile = () => {
-  const {
-    authState: {
-      user: { username, profile, followers, following },
-      token,
-    },
-  } = useAuth();
+  const { user, token } = useSelector((state) => state.auth);
   const [myposts, setMyPosts] = useState([]);
-  const { postDispatch } = usePost();
+  const dispatch = useDispatch();
 
   const delPostHandler = async (postid) => {
-    deletePost(postid, token, setMyPosts, username, postDispatch);
+    const username = user.username;
+    dispatch(delPost({ postid, token, setMyPosts, username }));
   };
 
   useEffect(() => {
-    loadmypost(username, setMyPosts);
-  }, [username]);
+    loadmypost(user.username, setMyPosts);
+  }, [user.username]);
 
   return (
     <div>
@@ -40,7 +35,7 @@ const Profile = () => {
             <div className="flex justify-evenly">
               <div className="w-40">
                 <img
-                  src={profile}
+                  src={user.profile}
                   alt="profile"
                   className="h-40 w-40 max-w-full object-cover rounded-full"
                 />
@@ -50,7 +45,7 @@ const Profile = () => {
                   <MdSettings />
                 </button>
                 <h2 className="font-semibold text-2xl text-gray-800">
-                  {username}
+                  {user.username}
                 </h2>
                 <div className="flex justify-between w-3/4 px-2">
                   <div className="text-center">
@@ -60,7 +55,7 @@ const Profile = () => {
                   <Link to="/followers">
                     <div className="text-center">
                       <p className="text-gray-800 font-bold">
-                        {followers.length}
+                        {user.followers.length}
                       </p>
                       <p className="text-gray-700">Followers</p>
                     </div>
@@ -68,7 +63,7 @@ const Profile = () => {
                   <Link to="/following">
                     <div className="text-center">
                       <p className="text-gray-800 font-bold">
-                        {following.length}
+                        {user.following.length}
                       </p>
                       <p className="text-gray-700">Following</p>
                     </div>
@@ -134,7 +129,7 @@ const Profile = () => {
           </div>
           <Footer />
         </section>
-        <RightPanel />
+        {/* <RightPanel /> */}
       </main>
     </div>
   );
