@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {loginUser,signupUser} from "../../thunks/authThunk";
+import {loginUser,signupUser,followUser,unfollowUser} from "../../thunks/authThunk";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -33,6 +33,18 @@ const authSlice = createSlice({
     },
     [signupUser.rejected]: (state, action) => {
       console.error(action.payload.data.errors[0]);
+    },
+    [followUser.fulfilled]: (state, action) => {
+      state.user.following = action.payload;
+    },
+    [followUser.rejected]: (state, action) => {
+      console.error(action.payload);
+    },
+    [unfollowUser.fulfilled]: (state, {payload}) => {
+      state.user.following = payload;
+    },
+    [unfollowUser.rejected]: (state, action) => {
+      console.error(action.payload);
     },
   },
 });
