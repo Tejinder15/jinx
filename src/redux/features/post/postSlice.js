@@ -8,7 +8,17 @@ const initialState = {
 const postSlice = createSlice({
     name: "posts",
     initialState,
-    reducers:{},
+    reducers:{
+        newest: (state) => {
+            state.posts = [...state.posts].sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        },
+        oldest: (state) => {
+            state.posts = [...state.posts].sort((a,b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        },
+        trending: (state) => {
+            state.posts = [...state.posts].sort((a,b)=>parseInt(b.likes.likeCount) - parseInt(a.likes.likeCount));
+        },
+    },
     extraReducers: {
         [getAllPosts.fulfilled]:(state,action) => {
             state.posts = action.payload;
@@ -68,5 +78,7 @@ const postSlice = createSlice({
         
     }
 });
+
+export const {oldest,newest,trending} = postSlice.actions;
 
 export default postSlice.reducer;
