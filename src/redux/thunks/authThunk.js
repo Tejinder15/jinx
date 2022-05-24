@@ -33,9 +33,17 @@ const signupUser = createAsyncThunk(
 
 const editProfile = createAsyncThunk("auth/editProfile",async({user,obj,token})=>{
   try {
-    const response = await axios.post("/api/users/edit",{userData:user},{headers:{authorization:token}});
-    console.log(response);
+    await axios.post("/api/users/edit",{userData:user},{headers:{authorization:token}});
     return obj.profileImg;
+  } catch (error) {
+    return error;
+  }
+});
+
+const editBio = createAsyncThunk("auth/editBio",async({newBio,token})=>{
+  try {
+    const response = await axios.post("/api/users/edit",{userData:{bio:newBio}},{headers:{authorization:token}});
+    return response.data.user.bio;
   } catch (error) {
     return error;
   }
@@ -63,4 +71,4 @@ const unfollowUser = createAsyncThunk("users/unfollow",async({followingId,token}
   }
 });
 
-export {loginUser,signupUser,editProfile,followUser,unfollowUser};
+export {loginUser,signupUser,editProfile,editBio,followUser,unfollowUser};

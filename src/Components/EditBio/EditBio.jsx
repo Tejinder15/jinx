@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { editBio } from "../../redux/thunks/authThunk";
 import { editPost } from "../../redux/thunks/postThunk";
-const EditPost = ({ setEditModal, profile, setEditMyPost, editMyPost }) => {
-  const { token } = useSelector((state) => state.auth);
+const EditBio = ({ setEditModal, profile, newBio, setNewBio }) => {
+  const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const editHandler = async (e) => {
     e.preventDefault();
-    dispatch(editPost({ editMyPost, token }));
-    setEditMyPost({ id: "", content: "" });
+    // dispatch(editPost({ editMyPost, token }));
+    dispatch(editBio({ newBio, token }));
     setEditModal(false);
+    setNewBio("");
   };
   return (
     <div className="modalback w-full bg-black absolute z-10 top-16 left-0 bg-opacity-60 flex justify-center items-center">
@@ -28,21 +31,19 @@ const EditPost = ({ setEditModal, profile, setEditMyPost, editMyPost }) => {
             cols="30"
             className="p-2 resize-none ml-3 bg-stone-100 outline-none"
             placeholder="What's Happening?"
-            value={editMyPost.content}
-            onChange={(e) =>
-              setEditMyPost((prev) => ({ ...prev, content: e.target.value }))
-            }
+            value={newBio}
+            onChange={(e) => setNewBio(e.target.value)}
           />
         </div>
         <button
           className="bg-orange-500 py-2 px-5 rounded-sm text-white float-right hover:bg-orange-600"
           onClick={(e) => editHandler(e)}
         >
-          Edit Post
+          Update Bio
         </button>
       </div>
     </div>
   );
 };
 
-export default EditPost;
+export default EditBio;

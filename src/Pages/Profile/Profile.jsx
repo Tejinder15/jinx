@@ -7,7 +7,6 @@ import {
   MdDelete,
   MdTextsms,
   MdShare,
-  MdSettings,
   MdEdit,
   MdAddAPhoto,
 } from "react-icons/md";
@@ -15,12 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { delPost } from "../../redux/thunks/postThunk";
 import EditPost from "../../Components/EditPost/EditPost";
 import { editProfile } from "../../redux/thunks/authThunk";
+import EditBio from "../../Components/EditBio/EditBio";
 const Profile = () => {
   const { user, token } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
   const [myposts, setMyPosts] = useState([]);
   const [editMyPost, setEditMyPost] = useState({ id: "", content: "" });
   const [editModal, setEditModal] = useState(false);
+  const [newBio, setNewBio] = useState("");
   const dispatch = useDispatch();
 
   const delPostHandler = async (postid) => {
@@ -30,7 +31,6 @@ const Profile = () => {
 
   useEffect(() => {
     loadmypost(user.username, setMyPosts);
-    console.log("loading");
   }, [user.username, posts]);
 
   const editModalHandler = (postid, content) => {
@@ -71,6 +71,11 @@ const Profile = () => {
     }
   };
 
+  const bioModalHandler = () => {
+    setEditModal(true);
+    setNewBio(user.bio);
+  };
+
   return (
     <div>
       <Header />
@@ -87,7 +92,7 @@ const Profile = () => {
                 />
                 <label
                   htmlFor="profile_pic"
-                  className="absolute right-2 bottom-1 text-2xl p-2 bg-gray-200 rounded-full cursor-pointer"
+                  className="absolute right-2 bottom-1 text-2xl p-2 bg-gray-200 rounded-full cursor-pointer flex items-center justify-center"
                 >
                   <MdAddAPhoto />
                   <input
@@ -101,9 +106,6 @@ const Profile = () => {
               </div>
             </div>
             <div className="p-2 flex flex-col items-center justify-center">
-              {/* <button className="ml-auto text-2xl p-2 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200">
-                <MdSettings />
-              </button> */}
               <h2 className="font-semibold text-2xl text-gray-800">
                 {user.username}
               </h2>
@@ -129,9 +131,17 @@ const Profile = () => {
                   </div>
                 </Link>
               </div>
-              <p className="px-2 text-sm text-gray-700 mt-1">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              </p>
+              <div className="flex items-center">
+                <span className="px-2 text-sm text-gray-700 mt-1">
+                  {user.bio}
+                </span>
+                <button
+                  className="text-orange-500 text-xl"
+                  onClick={bioModalHandler}
+                >
+                  <MdEdit />
+                </button>
+              </div>
             </div>
             <div className="mt-4">
               <h2 className="text-center font-semibold text-gray-800 text-xl">
@@ -199,6 +209,16 @@ const Profile = () => {
                 setEditMyPost={setEditMyPost}
                 profile={user.profile}
                 editMyPost={editMyPost}
+              />
+            ) : (
+              ""
+            )}
+            {editModal ? (
+              <EditBio
+                setEditModal={setEditModal}
+                profile={user.profile}
+                newBio={newBio}
+                setNewBio={setNewBio}
               />
             ) : (
               ""
