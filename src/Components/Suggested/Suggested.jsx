@@ -1,14 +1,12 @@
 import { MdPersonAdd } from "react-icons/md";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { followUser } from "../../Utils/followuser";
+import { followUser } from "../../redux/thunks/authThunk";
+import { useDispatch, useSelector } from "react-redux";
 const Suggested = () => {
-  const {
-    authState: { user, token },
-    authDispatch,
-  } = useAuth();
+  const { user, token } = useSelector((state) => state.auth);
   const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
   const followingUserId = user.following.reduce(
     (acc, curr) => [...acc, curr._id],
     []
@@ -37,7 +35,7 @@ const Suggested = () => {
   }, []);
 
   const followHandler = (followingId) => {
-    followUser(followingId, token, authDispatch);
+    dispatch(followUser({ followingId, token }));
   };
   return (
     <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">

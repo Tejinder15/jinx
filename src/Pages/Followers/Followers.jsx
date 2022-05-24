@@ -1,15 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Footer, Header } from "../../Components";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { followUser } from "../../Utils/followuser";
+import { followUser } from "../../redux/thunks/authThunk";
 
 const Followers = () => {
-  const {
-    authState: { user, token },
-    authDispatch,
-  } = useAuth();
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const followHandler = (followingId) => {
-    followUser(followingId, token, authDispatch);
+    dispatch(followUser({ followingId, token }));
   };
   return (
     <div>

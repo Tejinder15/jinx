@@ -1,13 +1,8 @@
 import { Header, Posts, LeftPanel, Footer } from "../../Components";
-import { usePost } from "../../Context/PostContext/post-context";
-import { useAuth } from "../../Context/AuthContext/auth-context";
+import { useSelector } from "react-redux";
 const Explore = () => {
-  const {
-    postState: { posts },
-  } = usePost();
-  const {
-    authState: { user },
-  } = useAuth();
+  const { posts } = useSelector((state) => state.posts);
+  const { user } = useSelector((state) => state.auth);
   const exceptMyPost = posts.filter((item) => item.username !== user.username);
   return (
     <div>

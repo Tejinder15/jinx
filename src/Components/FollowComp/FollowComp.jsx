@@ -1,13 +1,12 @@
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { unFollowUser } from "../../Utils/unfollowuser";
+import { useDispatch, useSelector } from "react-redux";
+import { unfollowUser } from "../../redux/thunks/authThunk";
 
 const FollowComp = ({ id, username, profile }) => {
-  const {
-    authState: { token },
-    authDispatch,
-  } = useAuth();
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const unfollowHandler = (followingId) => {
-    unFollowUser(followingId, token, authDispatch);
+    dispatch(unfollowUser({ followingId, token }));
+    // unFollowUser(followingId, token, authDispatch);
   };
   return (
     <div className="mb-2">

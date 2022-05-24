@@ -1,28 +1,18 @@
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { usePost } from "../../Context/PostContext/post-context";
 import { Header } from "../../Components";
 import { Posts } from "../../Components";
 import { MdDelete } from "react-icons/md";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { addComment } from "../../Utils/addcomment";
-import { deleteComment } from "../../Utils/deletecomment";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment, delComment } from "../../redux/thunks/postThunk";
 
 const Post = () => {
   const { postId } = useParams();
-  const {
-    postState: { posts },
-    postDispatch,
-  } = usePost();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const {
-    authState: {
-      user: { username },
-      token,
-    },
-  } = useAuth();
+  const { user, token } = useSelector((state) => state.auth);
 
   const [gotPost, setGotPost] = useState(null);
   const [comment, setComment] = useState("");
@@ -32,6 +22,7 @@ const Post = () => {
       const response = await axios.get(`/api/posts/${postId}`);
       if (response.status === 200) {
         setGotPost(response.data.post);
+        console.log("getting that Post");
       } else {
         throw new Error();
       }
@@ -40,9 +31,10 @@ const Post = () => {
     }
   };
 
-  const addCommentHandler = (postId) => {
+  const addCommentHandler = () => {
     if (token) {
-      addComment(postId, token, comment, postDispatch);
+      dispatch(addComment({ postId, token, comment }));
+      getThatPost();
       setComment("");
     } else {
       navigate("/login");
@@ -51,7 +43,8 @@ const Post = () => {
 
   const deleteCommentHandler = (commentId) => {
     if (token) {
-      deleteComment(postId, commentId, token, postDispatch);
+      dispatch(delComment({ postId, commentId, token }));
+      getThatPost();
     } else {
       navigate("/login");
     }
@@ -60,7 +53,7 @@ const Post = () => {
   useEffect(() => {
     getThatPost();
     // eslint-disable-next-line
-  }, [posts]);
+  }, []);
   return (
     <div>
       <Header />
@@ -88,7 +81,7 @@ const Post = () => {
           />
           <button
             className="bg-orange-500 p-2 rounded text-white"
-            onClick={() => addCommentHandler(postId)}
+            onClick={addCommentHandler}
           >
             Comment
           </button>
@@ -108,7 +101,7 @@ const Post = () => {
                         {item.username}
                       </p>
                     </div>
-                    {item.username === username && (
+                    {item.username === user.username && (
                       <button
                         className="ml-auto text-2xl text-slate-400 hover:text-red-500"
                         onClick={() => deleteCommentHandler(item._id)}

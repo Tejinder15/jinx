@@ -1,31 +1,24 @@
 import { MdFavorite, MdBookmark, MdTextsms, MdShare } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext/auth-context";
-import { useBookmark } from "../../Context/BookContext/bookmark-context";
-import { usePost } from "../../Context/PostContext/post-context";
-import { delFromBookmark } from "../../Utils/delfrombookmark";
-import { likePost } from "../../Utils/likepost";
-import { dislikePost } from "../../Utils/dislikepost";
+import { useDispatch, useSelector } from "react-redux";
+import { delBookmark } from "../../redux/thunks/bookThunk";
+import { likePost, dislikePost } from "../../redux/thunks/postThunk";
 const BookPost = ({ content, profile, username, postid, likedBy }) => {
-  const {
-    authState: { user, token },
-  } = useAuth();
-  const { bookmarkDispatch } = useBookmark();
-
-  const { postDispatch } = usePost();
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const delHandler = (postid) => {
-    delFromBookmark(postid, token, bookmarkDispatch);
+    dispatch(delBookmark({ postid, token }));
   };
 
   const likeHandler = async (postid) => {
-    likePost(postid, token, postDispatch);
+    dispatch(likePost({ postid, token }));
   };
 
   const dislikeHandler = async (postid) => {
-    dislikePost(postid, token, postDispatch);
+    dispatch(dislikePost({ postid, token }));
   };
   return (
     <div className="mt-5 bg-white rounded-lg px-1 border border-gray-400 mx-auto shadow-sm">
