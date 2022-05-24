@@ -11,13 +11,10 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
   const navigate = useNavigate();
 
   const addBookmarkHandler = (postid) => {
-    // addToBookmark(postid, token, bookmarkDispatch);
-    // console.log(postid);
     dispatch(addBookmark({ postid, token }));
   };
 
   const delBookmarkHandler = (postid) => {
-    // delFromBookmark(postid, token, bookmarkDispatch);
     dispatch(delBookmark({ postid, token }));
   };
 
@@ -27,6 +24,10 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
 
   const dislikeHandler = async (postid) => {
     dispatch(dislikePost({ postid, token }));
+  };
+
+  const shareHandler = (postid) => {
+    navigator.clipboard.writeText(`https://jinxb.netlify.app/post/${postid}`);
   };
 
   return (
@@ -68,7 +69,10 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
         >
           <MdTextsms />
         </button>
-        <button className="text-2xl mx-1 ml-3 text-slate-400">
+        <button
+          className="text-2xl mx-1 ml-3 text-slate-400"
+          onClick={() => shareHandler(postid)}
+        >
           <MdShare />
         </button>
         {bookmarks.some((item) => item._id === postid) ? (
