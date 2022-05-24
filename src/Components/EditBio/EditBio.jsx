@@ -1,15 +1,12 @@
-import { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { editBio } from "../../redux/thunks/authThunk";
-import { editPost } from "../../redux/thunks/postThunk";
 const EditBio = ({ setEditModal, profile, newBio, setNewBio }) => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const editHandler = async (e) => {
     e.preventDefault();
-    // dispatch(editPost({ editMyPost, token }));
     dispatch(editBio({ newBio, token }));
     setEditModal(false);
     setNewBio("");

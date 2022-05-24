@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { oldest, newest, trending } from "../../redux/features/post/postSlice";
 const Filter = () => {
   const dispatch = useDispatch();
-  const { posts } = useSelector((state) => state.posts);
   const location = useLocation();
   return (
     <>
