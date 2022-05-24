@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { MdLogout } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../redux/features/auth/authSlice";
 const Header = () => {
-  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    dispatch(logoutUser());
+  };
   return (
     <header className="bg-white h-16 sticky top-0 shadow-md mb-4">
       <nav className="max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
         <h1 className="text-3xl font-bold">Jinx</h1>
-        <Link to="/profile">
-          <div>
-            <img
-              src={user.profile}
-              alt="avatar"
-              className="rounded-full h-12 w-12 max-w-full object-cover"
-            />
-          </div>
-        </Link>
+        <button
+          className="text-2xl text-slate-500 hover:text-red-600"
+          onClick={logoutHandler}
+        >
+          <MdLogout />
+        </button>
       </nav>
     </header>
   );
