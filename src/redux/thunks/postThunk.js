@@ -12,6 +12,7 @@ const getAllPosts = createAsyncThunk("posts/allPosts",async()=>{
 });
 
 const addPost = createAsyncThunk("posts/addPost",async({post,token}) => {
+    console.log(post);
     try {
         const response = await axios.post("/api/posts",{postData:post},{headers:{authorization:token}});
         return response.data.posts;
@@ -30,12 +31,15 @@ const delPost = createAsyncThunk("posts/delPost",async({postid,token,setMyPosts,
     }
 });
 
-const editPost = createAsyncThunk("posts/editPost",async({postData,token}) => {
+const editPost = createAsyncThunk("posts/editPost",async({editMyPost,token}) => {
+    console.log(editMyPost);
     try {
-        const response = await axios.post(`/api/posts/edit/${postData._id}`,{postData},{headers:{authorization:token}});
+        const response = await axios.post(`/api/posts/edit/${editMyPost.id}`,{postData:{content:editMyPost.content}},{headers:{authorization:token}});
+        console.log(response);
         return response.data.posts;
     } catch (error) {
-        return error;
+        // return error;
+        console.error(error);
     }
 })
 
@@ -58,7 +62,6 @@ const dislikePost = createAsyncThunk("posts/dislikePost",async({postid,token})=>
 });
 
 const addComment = createAsyncThunk("posts/addComment",async({postId,token,comment})=>{
-    console.log(comment);
     try {
         const response = await axios.post(`/api/comments/add/${postId}`,{commentData:comment},{headers:{authorization:token}});
         return response.data.posts;

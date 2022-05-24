@@ -58,6 +58,13 @@ const postSlice = createSlice({
         [delComment.rejected]:(state,action) => {
             console.error(action.payload);
         },
+        [editPost.fulfilled]:(state,action) => {
+            console.log(action.payload);
+            state.posts = action.payload;
+        },
+        [editPost.rejected]:(state,action) => {
+            console.error(action.payload);
+        },
         
     }
 });
