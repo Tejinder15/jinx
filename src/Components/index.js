@@ -1,4 +1,3 @@
-export {BookPost} from "./BookPost/BookPost";
 export {FollowComp} from "./FollowComp/FollowComp";
 export {Footer} from "./Footer/Footer";
 export {Header} from "./Header/Header";

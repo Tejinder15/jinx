@@ -9,7 +9,7 @@ const Explore = () => {
       <Header />
       <main className="max-w-screen-xl mx-auto flex justify-between">
         <LeftPanel />
-        <section className="max-w-xl mx-auto">
+        <section className="max-w-xl mx-auto w-full">
           <div className="max-w-2xl mx-auto rounded-lg px-3 md:pb-0 pb-14">
             <h1 className="text-2xl font-semibold p-2">Explore</h1>
             <div>

@@ -21,6 +21,7 @@ const Profile = () => {
   const [myposts, setMyPosts] = useState([]);
   const [editMyPost, setEditMyPost] = useState({ id: "", content: "" });
   const [editModal, setEditModal] = useState(false);
+  const [editPModal, setEditPModal] = useState(false);
   const [newBio, setNewBio] = useState("");
   const dispatch = useDispatch();
 
@@ -34,7 +35,7 @@ const Profile = () => {
   }, [user.username, posts]);
 
   const editModalHandler = (postid, content) => {
-    setEditModal(!editModal);
+    setEditPModal(!editModal);
     setEditMyPost({ ...editMyPost, id: postid, content: content });
   };
 
@@ -64,10 +65,10 @@ const Profile = () => {
           dispatch(editProfile({ user, obj, token }));
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -82,7 +83,7 @@ const Profile = () => {
       <main className="max-w-screen-xl mx-auto pt-3 flex gap-4">
         <LeftPanel setMyPosts={setMyPosts} />
         <section className="max-w-xl mx-auto md:mx-0">
-          <div className="max-w-2xl mx-auto rounded-lg bg-white px-4 py-5 shadow-md">
+          <div className="max-w-2xl mx-auto rounded-lg bg-white px-4 py-5 pb-12 shadow-md">
             <div>
               <div className="w-40 mx-auto relative">
                 <img
@@ -157,7 +158,11 @@ const Profile = () => {
                       <div className="flex items-center px-3 py-2">
                         <div className="w-16">
                           <img
-                            src={item.profile}
+                            src={
+                              user.username === item.username
+                                ? user.profile
+                                : item.profile
+                            }
                             alt={item.profile + "_profile"}
                             className="rounded-full max-w-full object-cover h-14 w-14"
                           />
@@ -203,9 +208,9 @@ const Profile = () => {
                 )}
               </div>
             </div>
-            {editModal ? (
+            {editPModal ? (
               <EditPost
-                setEditModal={setEditModal}
+                setEditPModal={setEditPModal}
                 setEditMyPost={setEditMyPost}
                 profile={user.profile}
                 editMyPost={editMyPost}

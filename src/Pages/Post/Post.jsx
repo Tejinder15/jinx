@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Header } from "../../Components";
@@ -8,33 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { addComment, delComment } from "../../redux/thunks/postThunk";
 
 const Post = () => {
+  const { posts } = useSelector((state) => state.posts);
   const { postId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { user, token } = useSelector((state) => state.auth);
-
   const [gotPost, setGotPost] = useState(null);
   const [comment, setComment] = useState("");
-
-  const getThatPost = async () => {
-    try {
-      const response = await axios.get(`/api/posts/${postId}`);
-      if (response.status === 200) {
-        setGotPost(response.data.post);
-        console.log("getting that Post");
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const addCommentHandler = () => {
     if (token) {
       dispatch(addComment({ postId, token, comment }));
-      getThatPost();
       setComment("");
     } else {
       navigate("/login");
@@ -44,16 +27,15 @@ const Post = () => {
   const deleteCommentHandler = (commentId) => {
     if (token) {
       dispatch(delComment({ postId, commentId, token }));
-      getThatPost();
     } else {
       navigate("/login");
     }
   };
 
   useEffect(() => {
-    getThatPost();
+    setGotPost(posts.find((item) => item._id === postId));
     // eslint-disable-next-line
-  }, []);
+  }, [posts]);
   return (
     <div>
       <Header />
