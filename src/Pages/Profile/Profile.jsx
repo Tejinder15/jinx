@@ -21,6 +21,7 @@ const Profile = () => {
   const [myposts, setMyPosts] = useState([]);
   const [editMyPost, setEditMyPost] = useState({ id: "", content: "" });
   const [editModal, setEditModal] = useState(false);
+  const [editPModal, setEditPModal] = useState(false);
   const [newBio, setNewBio] = useState("");
   const dispatch = useDispatch();
 
@@ -34,7 +35,7 @@ const Profile = () => {
   }, [user.username, posts]);
 
   const editModalHandler = (postid, content) => {
-    setEditModal(!editModal);
+    setEditPModal(!editModal);
     setEditMyPost({ ...editMyPost, id: postid, content: content });
   };
 
@@ -64,10 +65,10 @@ const Profile = () => {
           dispatch(editProfile({ user, obj, token }));
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -157,7 +158,11 @@ const Profile = () => {
                       <div className="flex items-center px-3 py-2">
                         <div className="w-16">
                           <img
-                            src={item.profile}
+                            src={
+                              user.username === item.username
+                                ? user.profile
+                                : item.profile
+                            }
                             alt={item.profile + "_profile"}
                             className="rounded-full max-w-full object-cover h-14 w-14"
                           />
@@ -203,9 +208,9 @@ const Profile = () => {
                 )}
               </div>
             </div>
-            {editModal ? (
+            {editPModal ? (
               <EditPost
-                setEditModal={setEditModal}
+                setEditPModal={setEditPModal}
                 setEditMyPost={setEditMyPost}
                 profile={user.profile}
                 editMyPost={editMyPost}
