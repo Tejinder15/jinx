@@ -121,9 +121,7 @@ export const bookmarkPostHandler = function (schema, request) {
         }
       );
     }
-    const isBookmarked = user.bookmarks.some(
-      (currPost) => currPost._id === postId
-    );
+    const isBookmarked = user.bookmarks.some((curr) => curr === postId);
     if (isBookmarked) {
       return new Response(
         400,
@@ -132,7 +130,8 @@ export const bookmarkPostHandler = function (schema, request) {
       );
     }
     // user.bookmarks.push(post);
-    user.bookmarks.push(JSON.parse(JSON.stringify(post)));
+    user.bookmarks.push(post._id);
+    // user.bookmarks.push(JSON.parse(JSON.stringify(post)));
     this.db.users.update(
       { _id: user._id },
       { ...user, updatedAt: formatDate() }
@@ -169,15 +168,11 @@ export const removePostFromBookmarkHandler = function (schema, request) {
         }
       );
     }
-    const isBookmarked = user.bookmarks.some(
-      (currPost) => currPost._id === postId
-    );
+    const isBookmarked = user.bookmarks.some((curr) => curr === postId);
     if (!isBookmarked) {
       return new Response(400, {}, { errors: ["Post not bookmarked yet"] });
     }
-    const filteredBookmarks = user.bookmarks.filter(
-      (currPost) => currPost._id !== postId
-    );
+    const filteredBookmarks = user.bookmarks.filter((curr) => curr !== postId);
     user = { ...user, bookmarks: filteredBookmarks };
     this.db.users.update(
       { _id: user._id },
