@@ -7,7 +7,7 @@ const Header = () => {
     dispatch(logoutUser());
   };
   return (
-    <header className="bg-white h-16 sticky top-0 shadow-md mb-4">
+    <header className="bg-white h-16 sticky top-0 shadow-md mb-4 z-50">
       <nav className="max-w-screen-xl mx-auto flex items-center justify-between h-full px-4">
         <h1 className="text-3xl font-bold">Jinx</h1>
         <button

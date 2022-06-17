@@ -35,7 +35,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
       <div className="flex items-center px-3 py-2">
         <div className="w-16">
           <img
-            src={profile}
+            src={user.username === username ? user.profile : profile}
             alt="user_post"
             className="rounded-full max-w-full object-cover h-14 w-14"
           />

@@ -1,7 +1,7 @@
 import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { editPost } from "../../redux/thunks/postThunk";
-const EditPost = ({ setEditModal, profile, setEditMyPost, editMyPost }) => {
+const EditPost = ({ setEditPModal, profile, setEditMyPost, editMyPost }) => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -9,12 +9,12 @@ const EditPost = ({ setEditModal, profile, setEditMyPost, editMyPost }) => {
     e.preventDefault();
     dispatch(editPost({ editMyPost, token }));
     setEditMyPost({ id: "", content: "" });
-    setEditModal(false);
+    setEditPModal(false);
   };
   return (
     <div className="modalback w-full bg-black absolute z-10 top-16 left-0 bg-opacity-60 flex justify-center items-center">
       <div className="absolute bg-white p-4 z-20 rounded-lg shadow-lg max-w-sm ">
-        <MdClose className="text-2xl" onClick={() => setEditModal(false)} />
+        <MdClose className="text-2xl" onClick={() => setEditPModal(false)} />
         <div className="mt-2 flex mb-3">
           <div className="w-20">
             <img
