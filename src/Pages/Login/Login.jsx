@@ -83,7 +83,7 @@ const Login = () => {
             className="block border-2 border-orange-500 py-2.5 px-4 mt-3 w-full rounded text-orange-500 hover:bg-orange-500 hover:text-white"
             onClick={(e) => guestHandler(e, "adarshbalika", "adarshBalika123")}
           >
-            Login in as Guest
+            Use Credentials
           </button>
         </form>
         <p className="text-center mt-3">Don't Have An Account ?</p>
