@@ -8,6 +8,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
   const { user, token } = useSelector((state) => state.auth);
   const { bookmarks } = useSelector((state) => state.bookmarks);
   const location = useLocation();
+  const isBookmarked = bookmarks.some((curr) => curr === postid);
 
   const navigate = useNavigate();
 
@@ -78,7 +79,7 @@ const Posts = ({ content, profile, username, postid, likedBy }) => {
         >
           <MdShare />
         </button>
-        {bookmarks.some((item) => item._id === postid) ? (
+        {isBookmarked ? (
           <button
             className="text-2xl text-orange-500"
             onClick={() => delBookmarkHandler(postid)}

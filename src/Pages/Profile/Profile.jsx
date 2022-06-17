@@ -83,7 +83,7 @@ const Profile = () => {
       <main className="max-w-screen-xl mx-auto pt-3 flex gap-4">
         <LeftPanel setMyPosts={setMyPosts} />
         <section className="max-w-xl mx-auto md:mx-0">
-          <div className="max-w-2xl mx-auto rounded-lg bg-white px-4 py-5 shadow-md">
+          <div className="max-w-2xl mx-auto rounded-lg bg-white px-4 py-5 pb-12 shadow-md">
             <div>
               <div className="w-40 mx-auto relative">
                 <img

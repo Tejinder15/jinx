@@ -33,7 +33,6 @@ const delPost = createAsyncThunk("posts/delPost",async({postid,token,setMyPosts,
 const editPost = createAsyncThunk("posts/editPost",async({editMyPost,token}) => {
     try {
         const response = await axios.post(`/api/posts/edit/${editMyPost.id}`,{postData:{content:editMyPost.content}},{headers:{authorization:token}});
-        console.log(response);
         return response.data.posts;
     } catch (error) {
         return error;
@@ -43,7 +42,6 @@ const editPost = createAsyncThunk("posts/editPost",async({editMyPost,token}) => 
 const  likePost = createAsyncThunk("posts/likePost",async({postid,token})=>{
     try {
         const response = await axios.post(`/api/posts/like/${postid}`,{},{headers:{authorization:token}});
-        console.log(response);
         return response.data.posts;
     } catch (error) {
         return error;
