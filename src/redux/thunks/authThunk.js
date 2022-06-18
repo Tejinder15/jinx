@@ -26,7 +26,7 @@ const signupUser = createAsyncThunk(
           token: response.data.encodedToken
       }
     } catch (error) {
-      console.error(error);
+      return error;
     }
   }
 );

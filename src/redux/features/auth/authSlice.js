@@ -32,7 +32,8 @@ const authSlice = createSlice({
       state.token = action.payload.token;
     },
     [signupUser.rejected]: (state, action) => {
-      console.error(action.payload.data.errors[0]);
+      console.error(action.payload);
+
     },
     [followUser.fulfilled]: (state, action) => {
       state.user.following = action.payload;
