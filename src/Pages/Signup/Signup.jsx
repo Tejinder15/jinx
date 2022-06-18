@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 import { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../../Context/AuthContext/auth-context";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../../redux/thunks/authThunk";
 const Signup = () => {
   const navigate = useNavigate();
-  const { authDispatch } = useAuth();
+  const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
   const [newUserData, setNewUserData] = useState({
     firstName: "",
@@ -36,13 +37,15 @@ const Signup = () => {
           password: newUserData.password,
         });
         if (response.status === 201) {
-          authDispatch({
-            type: "SIGNUP",
-            payload: {
-              user: response.data.createdUser,
-              token: response.data.encodedToken,
-            },
-          });
+          // authDispatch({
+          //   type: "SIGNUP",
+          //   payload: {
+          //     user: response.data.createdUser,
+          //     token: response.data.encodedToken,
+          //   },
+          // });
+          dispatch(signupUser(newUserData));
+
           localStorage.setItem("token", response.data.encodedToken);
           localStorage.setItem(
             "user",
