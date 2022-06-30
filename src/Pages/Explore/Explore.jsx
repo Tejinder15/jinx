@@ -1,5 +1,6 @@
 import { Header, Posts, LeftPanel, Footer, RightPanel } from "../../Components";
 import { useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 const Explore = () => {
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
@@ -7,6 +8,7 @@ const Explore = () => {
   return (
     <div>
       <Header />
+      <Toaster />
       <main className="max-w-screen-xl mx-auto flex justify-between">
         <LeftPanel />
         <section className="max-w-xl mx-auto w-full">

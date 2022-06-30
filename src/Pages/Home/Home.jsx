@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../redux/thunks/postThunk";
 import { sortByTrending } from "../../Utils/sortByTrending";
 import { sortByDate } from "../../Utils/sortByDate";
+import { Toaster } from "react-hot-toast";
 
 const Home = () => {
   const { user } = useSelector((state) => state.auth);
@@ -24,6 +25,7 @@ const Home = () => {
   return (
     <div>
       <Header />
+      <Toaster />
       <main className="max-w-screen-xl mx-auto flex justify-between">
         <LeftPanel
           setTrending={setTrending}

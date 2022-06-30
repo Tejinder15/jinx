@@ -71,7 +71,10 @@ const Sidenav = ({ setMyPosts }) => {
             <div className="mt-2 flex mb-3">
               <div className="w-20">
                 <img
-                  src={user.profile}
+                  src={
+                    user.profile ||
+                    `https://avatars.dicebear.com/api/bottts/${user.username}.svg?b=%23c4c4c4`
+                  }
                   alt="profile"
                   className="h-20 w-20 max-full object-cover rounded-full"
                 />

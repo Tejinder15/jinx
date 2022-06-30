@@ -15,6 +15,7 @@ import { delPost } from "../../redux/thunks/postThunk";
 import EditPost from "../../Components/EditPost/EditPost";
 import { editProfile } from "../../redux/thunks/authThunk";
 import EditBio from "../../Components/EditBio/EditBio";
+import { Toaster } from "react-hot-toast";
 const Profile = () => {
   const { user, token } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
@@ -80,6 +81,7 @@ const Profile = () => {
   return (
     <div>
       <Header />
+      <Toaster />
       <main className="max-w-screen-xl mx-auto pt-3 flex gap-4">
         <LeftPanel setMyPosts={setMyPosts} />
         <section className="max-w-xl mx-auto w-full md:mx-0">
@@ -87,7 +89,10 @@ const Profile = () => {
             <div>
               <div className="w-40 mx-auto relative">
                 <img
-                  src={user.profile}
+                  src={
+                    user.profile ||
+                    `https://avatars.dicebear.com/api/bottts/${user.username}.svg`
+                  }
                   alt="profile"
                   className="h-40 w-40 max-w-full object-cover rounded-full"
                 />
@@ -159,9 +164,10 @@ const Profile = () => {
                         <div className="w-16">
                           <img
                             src={
-                              user.username === item.username
+                              (user.username === item.username
                                 ? user.profile
-                                : item.profile
+                                : item.profile) ||
+                              `https://avatars.dicebear.com/api/bottts/${user.username}.svg?b=%23c4c4c4`
                             }
                             alt={item.profile + "_profile"}
                             className="rounded-full max-w-full object-cover h-14 w-14"
