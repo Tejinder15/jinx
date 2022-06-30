@@ -1,4 +1,4 @@
-import { Header, Posts, LeftPanel, Footer } from "../../Components";
+import { Header, Posts, LeftPanel, Footer, RightPanel } from "../../Components";
 import { useSelector } from "react-redux";
 const Explore = () => {
   const { posts } = useSelector((state) => state.posts);
@@ -31,6 +31,7 @@ const Explore = () => {
           </div>
           <Footer />
         </section>
+        <RightPanel />
       </main>
     </div>
   );

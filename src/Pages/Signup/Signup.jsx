@@ -37,13 +37,6 @@ const Signup = () => {
           password: newUserData.password,
         });
         if (response.status === 201) {
-          // authDispatch({
-          //   type: "SIGNUP",
-          //   payload: {
-          //     user: response.data.createdUser,
-          //     token: response.data.encodedToken,
-          //   },
-          // });
           dispatch(signupUser(newUserData));
 
           localStorage.setItem("token", response.data.encodedToken);
