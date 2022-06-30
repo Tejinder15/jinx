@@ -59,9 +59,12 @@ const Suggested = () => {
               <p className="text-sm font-semibold">{item.username}</p>
               <p className="text-xs text-gray-600">Followed by xyz.</p>
             </div>
-            <div className="ml-auto p-3 bg-gray-200 rounded-full text-xl hover:bg-gray-300 text-orange-500">
-              <MdPersonAdd onClick={() => followHandler(item._id)} />
-            </div>
+            <button
+              className="ml-auto p-3 bg-gray-200 rounded-full text-xl hover:bg-gray-300 text-orange-500"
+              onClick={() => followHandler(item._id)}
+            >
+              <MdPersonAdd />
+            </button>
           </div>
         ))}
       </div>

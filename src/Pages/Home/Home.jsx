@@ -6,11 +6,17 @@ import { sortByTrending } from "../../Utils/sortByTrending";
 import { sortByDate } from "../../Utils/sortByDate";
 
 const Home = () => {
+  const { user } = useSelector((state) => state.auth);
   const { posts } = useSelector((state) => state.posts);
   const [trending, setTrending] = useState(false);
   const [sortBy, setSortBy] = useState("");
   const dispatch = useDispatch();
-  const trendingSort = sortByTrending(posts, trending);
+  const feedPosts = posts?.filter(
+    (post) =>
+      user.username === post.username ||
+      user.following.some((following) => following.username === post.username)
+  );
+  const trendingSort = sortByTrending(feedPosts, trending);
   const dateSort = sortByDate(trendingSort, sortBy);
   useEffect(() => {
     dispatch(getAllPosts());
