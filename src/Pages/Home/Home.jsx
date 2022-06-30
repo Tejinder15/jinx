@@ -25,7 +25,7 @@ const Home = () => {
           sortBy={sortBy}
           setSortBy={setSortBy}
         />
-        <section className="max-w-xl mx-auto pb-16">
+        <section className="max-w-xl w-full mx-auto pb-16">
           <div className="px-3">
             {dateSort.length > 0 ? (
               dateSort.map((item) => (
