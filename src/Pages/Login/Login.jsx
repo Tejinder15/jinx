@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { loginUser } from "../../redux/thunks/authThunk";
+import { Toaster } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 
 const Login = () => {
@@ -15,13 +16,9 @@ const Login = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const submitForm = async (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
-    try {
-      dispatch(loginUser(userData));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(loginUser(userData));
   };
 
   const guestHandler = (e, uname, pass) => {
@@ -38,6 +35,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-200">
+      <Toaster />
       <div className="max-w-md p-8 rounded shadow-xl bg-white">
         <h1 className="text-5xl font-semibold text-center">Jinx</h1>
         <form onSubmit={(e) => submitForm(e)}>

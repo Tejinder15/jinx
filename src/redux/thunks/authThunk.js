@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const loginUser = createAsyncThunk(
   "auth/login",
-  async ({username,password}) => {
+  async ({username,password},{rejectWithValue}) => {
     try {
       const response = await axios.post("/api/auth/login", {username,password});
       toast.success('Logged In',{
@@ -20,7 +20,7 @@ const loginUser = createAsyncThunk(
           token: response.data.encodedToken
       };
     } catch (error) {
-      console.error(error);
+      return rejectWithValue(error.response.data.errors[0]);
     }
   }
 );

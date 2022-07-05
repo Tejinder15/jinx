@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 import {loginUser,signupUser,followUser,unfollowUser,editProfile,editBio} from "../../thunks/authThunk";
 
 const initialState = {
@@ -24,8 +25,8 @@ const authSlice = createSlice({
       localStorage.setItem("user",JSON.stringify(action.payload.user));
       localStorage.setItem("token",action.payload.token);
     },
-    [loginUser.rejected]: (state, action) => {
-      console.error(action.payload.data.errors[0]);
+    [loginUser.rejected]: (state,action) => {
+      toast.error(action.payload);
     },
     [signupUser.fulfilled]: (state, action) => {
       state.user = action.payload.user;
