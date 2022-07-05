@@ -38,11 +38,11 @@ const Suggested = () => {
     dispatch(followUser({ followingId, token }));
   };
   return (
-    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">
+    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg">
       <h1 className="font-semibold text-lg text-slate-800">
         Suggested For You
       </h1>
-      <div className="h-60 overflow-y-auto friendreqpanel">
+      <div className="overflow-y-auto friendreqpanel">
         {sugUser.map((item) => (
           <div
             className="flex items-center border mt-3 p-1 rounded-lg"
