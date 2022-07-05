@@ -1,4 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { loginUser } from "../../redux/thunks/authThunk";
 import { Toaster } from "react-hot-toast";
@@ -8,6 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useSelector((state) => state.auth);
+  const [showPass, setShowPass] = useState(false);
   const [userData, setUserData] = useState({ username: "", password: "" });
   const dispatch = useDispatch();
 
@@ -24,6 +26,11 @@ const Login = () => {
   const guestHandler = (e, uname, pass) => {
     e.preventDefault();
     setUserData({ ...userData, username: uname, password: pass });
+  };
+
+  const togglePass = (e) => {
+    e.preventDefault();
+    setShowPass(!showPass);
   };
 
   useEffect(() => {
@@ -46,7 +53,7 @@ const Login = () => {
             <input
               type="text"
               name="username"
-              className="block border border-black p-2 rounded-sm"
+              className="w-full block border border-black p-2 rounded-sm"
               autoComplete="off"
               id="username"
               value={userData.username}
@@ -59,16 +66,21 @@ const Login = () => {
             <label htmlFor="lpassword" className="text-slate-600">
               Password
             </label>
-            <input
-              type="password"
-              name="password"
-              id="lpassword"
-              required
-              className="block border border-black p-2 rounded-sm"
-              value={userData.password}
-              onChange={changeHandler}
-              autoComplete="off"
-            />
+            <div className="flex border border-black rounded-sm max-w-xs">
+              <input
+                type={showPass ? "text" : "password"}
+                name="password"
+                id="lpassword"
+                className="w-10/12 border border-r-1 border-r-black p-2 rounded-sm"
+                value={userData.password}
+                onChange={changeHandler}
+                required
+                autoComplete="off"
+              />
+              <button className="mx-auto text-lg" onClick={togglePass}>
+                {showPass ? <MdVisibility /> : <MdVisibilityOff />}
+              </button>
+            </div>
           </div>
           <button
             type="submit"
