@@ -17,7 +17,7 @@ export const posts = [
       dislikedBy: [],
     },
     profile: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1148&q=80",
-    username: "adarshbalika",
+    username: "testuser",
     createdAt: formatDate(),
     updatedAt: formatDate(),
     comments: [

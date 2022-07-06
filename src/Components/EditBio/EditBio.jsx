@@ -2,7 +2,7 @@ import { MdClose } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { editBio } from "../../redux/thunks/authThunk";
 const EditBio = ({ setEditModal, profile, newBio, setNewBio }) => {
-  const { token } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const editHandler = async (e) => {
@@ -18,7 +18,10 @@ const EditBio = ({ setEditModal, profile, newBio, setNewBio }) => {
         <div className="mt-2 flex mb-3">
           <div className="w-20">
             <img
-              src={profile}
+              src={
+                profile ||
+                `https://avatars.dicebear.com/api/bottts/${user.username}.svg?b=%23c4c4c4`
+              }
               alt="profile"
               className="h-20 w-20 max-full object-cover rounded-full"
             />

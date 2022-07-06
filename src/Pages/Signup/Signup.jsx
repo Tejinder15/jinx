@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../../redux/thunks/authThunk";
+import toast, { Toaster } from "react-hot-toast";
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,13 +38,6 @@ const Signup = () => {
           password: newUserData.password,
         });
         if (response.status === 201) {
-          // authDispatch({
-          //   type: "SIGNUP",
-          //   payload: {
-          //     user: response.data.createdUser,
-          //     token: response.data.encodedToken,
-          //   },
-          // });
           dispatch(signupUser(newUserData));
 
           localStorage.setItem("token", response.data.encodedToken);
@@ -52,7 +46,17 @@ const Signup = () => {
             JSON.stringify(response.data.createdUser)
           );
           navigate("/");
-          setTimeout(() => alert("Signed up"), 2000);
+          setTimeout(
+            () =>
+              toast.success("Signed Up", {
+                style: {
+                  borderRadius: "4px",
+                  background: "#333",
+                  color: "#fff",
+                },
+              }),
+            1500
+          );
         } else {
           throw new Error();
         }
@@ -60,11 +64,12 @@ const Signup = () => {
         console.error(error);
       }
     } else {
-      alert("Password does not Match!!");
+      toast.error("Password does not Match!!");
     }
   };
   return (
     <div className="flex justify-center items-center h-screen bg-slate-200">
+      <Toaster />
       <div className="max-w-xs p-8 rounded shadow-xl bg-white">
         <h1 className="text-5xl font-semibold text-center">Jinx</h1>
         <form onSubmit={formSubmitHanlder}>

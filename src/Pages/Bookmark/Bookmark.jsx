@@ -2,6 +2,7 @@ import { Header, Footer, LeftPanel, Posts } from "../../Components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBookmark } from "../../redux/thunks/bookThunk";
+import { Toaster } from "react-hot-toast";
 
 const Bookmark = () => {
   const { token } = useSelector((state) => state.auth);
@@ -12,7 +13,7 @@ const Bookmark = () => {
   useEffect(() => {
     dispatch(getAllBookmark({ token }));
     // eslint-disable-next-line
-  }, [posts]);
+  }, [posts, token]);
 
   const bookmarkPost = posts.filter((currPost) =>
     bookmarks.some((curr) => curr === currPost._id)
@@ -20,6 +21,7 @@ const Bookmark = () => {
   return (
     <div>
       <Header />
+      <Toaster />
       <main className="max-w-screen-xl mx-auto pt-3 flex justify-between">
         <LeftPanel />
         <section className="max-w-xl mx-auto w-full">

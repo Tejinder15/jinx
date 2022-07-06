@@ -38,11 +38,11 @@ const Suggested = () => {
     dispatch(followUser({ followingId, token }));
   };
   return (
-    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg h-72">
+    <div className="w-80 mt-4 rounded-lg bg-white p-4 pb-10 fixed shadow-lg">
       <h1 className="font-semibold text-lg text-slate-800">
         Suggested For You
       </h1>
-      <div className="h-60 overflow-y-auto friendreqpanel">
+      <div className="overflow-y-auto friendreqpanel">
         {sugUser.map((item) => (
           <div
             className="flex items-center border mt-3 p-1 rounded-lg"
@@ -59,9 +59,12 @@ const Suggested = () => {
               <p className="text-sm font-semibold">{item.username}</p>
               <p className="text-xs text-gray-600">Followed by xyz.</p>
             </div>
-            <div className="ml-auto p-3 bg-gray-200 rounded-full text-xl hover:bg-gray-300 text-orange-500">
-              <MdPersonAdd onClick={() => followHandler(item._id)} />
-            </div>
+            <button
+              className="ml-auto p-3 bg-gray-200 rounded-full text-xl hover:bg-gray-300 text-orange-500"
+              onClick={() => followHandler(item._id)}
+            >
+              <MdPersonAdd />
+            </button>
           </div>
         ))}
       </div>
